@@ -62,7 +62,7 @@ HWND InitInstance(HINSTANCE hInstance, const char* title, int width, int height,
 		(window.bitmapWidth - width) / 2, (window.bitmapHeight - height) / 2, width, height, NULL, NULL, hInstance, NULL);
 
 	//Create main window
-	window.mainWindow = CreateWindowExA(WS_EX_LAYERED, CLASS_NAME, CLASS_NAME "Helper", WS_OVERLAPPEDWINDOW,
+	window.mainWindow = CreateWindowExA(WS_EX_LAYERED, CLASS_NAME, title, WS_OVERLAPPEDWINDOW,
 		(window.bitmapWidth - width) / 2, (window.bitmapHeight - height) / 2, width, height, window.borderWindow, NULL, hInstance, NULL);
 	SetLayeredWindowAttributes(window.mainWindow, TRANSPARENCY_KEY, 0, LWA_COLORKEY);
 

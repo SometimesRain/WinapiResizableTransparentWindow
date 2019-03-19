@@ -1,6 +1,7 @@
 #include "window.h"
 
 #define CLASS_NAME "TransparentWnd"
+#define BORDER_COLOR 0x00ffffff
 
 typedef struct
 {
@@ -57,11 +58,11 @@ HWND InitInstance(HINSTANCE hInstance, const char* title, int width, int height,
 	window.bitmapHeight = info.rcMonitor.bottom;
 
 	//Create outer window that provides proper drag handles for the main window
-	window.borderWindow = CreateWindowExA(WS_EX_LAYERED, CLASS_NAME, CLASS_NAME "Helper", WS_POPUP,
+	window.borderWindow = CreateWindowExA(WS_EX_LAYERED, CLASS_NAME, title, WS_POPUP,
 		(window.bitmapWidth - width) / 2, (window.bitmapHeight - height) / 2, width, height, NULL, NULL, hInstance, NULL);
 
 	//Create main window
-	window.mainWindow = CreateWindowExA(WS_EX_LAYERED, CLASS_NAME, title, WS_OVERLAPPEDWINDOW,
+	window.mainWindow = CreateWindowExA(WS_EX_LAYERED, CLASS_NAME, CLASS_NAME "Helper", WS_OVERLAPPEDWINDOW,
 		(window.bitmapWidth - width) / 2, (window.bitmapHeight - height) / 2, width, height, window.borderWindow, NULL, hInstance, NULL);
 	SetLayeredWindowAttributes(window.mainWindow, TRANSPARENCY_KEY, 0, LWA_COLORKEY);
 
@@ -96,7 +97,7 @@ HWND InitInstance(HINSTANCE hInstance, const char* title, int width, int height,
 	window.border.bottom = window.rect.bottom - client.bottom;
 
 	//Draw border
-	Draw(window.borderWindow, 0x01ffffff);
+	Draw(window.borderWindow, BORDER_COLOR);
 
 	//Show windows
 	ShowWindow(window.mainWindow, nCmdShow);
@@ -188,7 +189,7 @@ LRESULT _stdcall DefTransparentWndProcA(HWND hwnd, UINT message, WPARAM wParam, 
 			//Window was unmaximized
 			else
 			{
-				Draw(window.borderWindow, 0x01ffffff);
+				Draw(window.borderWindow, BORDER_COLOR);
 				ActivateFrame(window.mainWindow);
 			}
 		}

@@ -2,7 +2,7 @@
 
 Creating a transparent window in GDI has two major challenges to overcome:
 * By default, the resize handles are messed up. Dragging the right or bottom border is impossible.
-* The window caption starts ignoring mouse input when it's resized
+* Window caption starts ignoring mouse input when the window is resized
 
 This small sample program solves these issues.
 
@@ -37,5 +37,5 @@ int _stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 Two windows are created, a parent and a child. The parent window contains a see-through border white border with an alpha value of one. The child window is a bog-standard WS_OVERLAPPEDWINDOW with color key transparency. With the parent-child hierarchy, everything just works — the child window correctly processes WM_NCHITTEST messages without any additional code.
 
-**The resize border is almost invisible to human eye**
+**The resize border is almost invisible to human eye**  
 ![](/against_black_bg.png)
